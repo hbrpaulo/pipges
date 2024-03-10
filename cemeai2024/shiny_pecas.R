@@ -83,7 +83,7 @@ server <- function(input, output) {
              Quantil = cumsum(n)/max(n())) %>%
       mutate(phantom_n = n()) %>% # utilizado na media do custo ponderada (ver ui)
       rowwise() %>%
-      mutate(# n * P(X>x) * (Qty ) ####
+      mutate(# n * P(X>x) * (Qty - Qty_mean) ####
              Pedra_sobra = input$n_vins_dias * Quantil * (Qty - Qty_mean),
              # P(X<=x) * valor das pecas que sobraram ####
              Perda_falta =  (1-Quantil)*input$loss_, # P(X>x) * multa
