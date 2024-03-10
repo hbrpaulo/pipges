@@ -29,30 +29,7 @@ server <- function(input, output) {
   csvData <- reactiveVal(NULL)
   
   observeEvent(input$goButton, {
-    output$resultado <- renderText({
-      paste0(
-        'Número de vins fabricados por dia: ', input$n_vins_dias, '<br>',
-        'Perda atribuída ao não se entregar um dos vins: R$', 
-        prettyNum(round(input$loss_, 2), big.mark = '.', decimal.mark = ','),
-        '<br>', 'Valor médio economizado em PN por dia: R$', 
-        prettyNum(round(input$n_vins_dias*weighted.mean(
-          x = filteredData$Price*(filteredData$Qty_max - filteredData$Qty),
-          w = filteredData$phantom_n), 2),
-          big.mark = '.', decimal.mark = ','),
-        '<br>', 'Valor médio economizado em PN por mês: R$', 
-        prettyNum(round(30*5/7*input$n_vins_dias*weighted.mean(
-          x = filteredData$Price*(filteredData$Qty_max - filteredData$Qty),
-          w = filteredData$phantom_n), 2),
-          big.mark = '.', decimal.mark = ','),
-        # 30 dias no mês, 5 dias uteis dentro dos 7 da semana
-        '<br>', 'Valor médio economizado em PN por ano: R$', 
-        prettyNum(round(365*5/7*input$n_vins_dias*weighted.mean(
-          x = filteredData$Price*(filteredData$Qty_max - filteredData$Qty),
-          w = filteredData$phantom_n), 2),
-          big.mark = '.', decimal.mark = ','))
-      # 365 dias no ano, 5 dias uteis dentro dos 7 da semana
-    })
-    
+     
     # Verificar se um arquivo foi enviado
     req(input$file1)
     
@@ -99,6 +76,31 @@ server <- function(input, output) {
     
     # Armazenar os dados filtrados para exibição
     csvData(filteredData)
+
+    output$resultado <- renderText({
+      paste0(
+        'Número de vins fabricados por dia: ', input$n_vins_dias, '<br>',
+        'Perda atribuída ao não se entregar um dos vins: R$', 
+        prettyNum(round(input$loss_, 2), big.mark = '.', decimal.mark = ','),
+        '<br>', 'Valor médio economizado em PN por dia: R$', 
+        prettyNum(round(input$n_vins_dias*weighted.mean(
+          x = filteredData$Price*(filteredData$Qty_max - filteredData$Qty),
+          w = filteredData$phantom_n), 2),
+          big.mark = '.', decimal.mark = ','),
+        '<br>', 'Valor médio economizado em PN por mês: R$', 
+        prettyNum(round(30*5/7*input$n_vins_dias*weighted.mean(
+          x = filteredData$Price*(filteredData$Qty_max - filteredData$Qty),
+          w = filteredData$phantom_n), 2),
+          big.mark = '.', decimal.mark = ','),
+        # 30 dias no mês, 5 dias uteis dentro dos 7 da semana
+        '<br>', 'Valor médio economizado em PN por ano: R$', 
+        prettyNum(round(365*5/7*input$n_vins_dias*weighted.mean(
+          x = filteredData$Price*(filteredData$Qty_max - filteredData$Qty),
+          w = filteredData$phantom_n), 2),
+          big.mark = '.', decimal.mark = ','))
+      # 365 dias no ano, 5 dias uteis dentro dos 7 da semana
+    })
+   
   })
   
   # Renderizar o DataTable com os dados filtrados
