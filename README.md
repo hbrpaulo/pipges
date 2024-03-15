@@ -4,7 +4,7 @@
 <!---- 💞️ I’m looking to collaborate on ...--->
 - 📫 How to reach me hbr.paulo@gmail.com
 
-[under construction]
+Those are the projects related to my participation in PIPGEs (Post graduation program in Statistics UFSCar/USP)
 
 <!---
 hbrpaulo/hbrpaulo is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
